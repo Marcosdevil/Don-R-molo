@@ -52,12 +52,40 @@ function getProduct(req, res){
 }
 
 function getProducts(req, res){
+    /*try{
+        const products = Product.find();
+
+        res.json(products)
+        
+    } catch (error){
+        console.log(error);
+        res.status(500).send('hubo un error')
+    }*/
+
+
+
+    /*Product.find().sort('name'), function(err, products, total){
+        if(err){
+            res.status(500).send({message: 'Error en la petición.'});
+        }else{
+            if(!products){
+                res.status(404).send({message: 'No hay productos.'});
+            }else{
+                return res.status(200).send({
+                    total_items: total,
+                    products: products
+                });
+            }    
+        }
+    };*/
+
+    
     if(req.params.page){
         var page = req.params.page;
     }else{
         var page = 1;
     }
-    var itemsPerPage = 3;
+    var itemsPerPage = 4;
 
     Product.find().sort('name').paginate(page, itemsPerPage, function(err, products, total){
         if(err){
