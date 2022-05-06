@@ -80,14 +80,16 @@ function getProducts(req, res){
     };*/
 
     
-    if(req.params.page){
-        var page = req.params.page;
+    if(req.query.page){
+        var page = req.query.page;
+        
     }else{
         var page = 1;
     }
-    var itemsPerPage = 4;
+    var itemsPerPage = 4;  
+    var categoria = req.query.categorie;        
 
-    Product.find().sort('name').paginate(page, itemsPerPage, function(err, products, total){
+    Product.find({ categorie: categoria }).sort('name').paginate(page, itemsPerPage, function(err, products, total){
         if(err){
             res.status(500).send({message: 'Error en la petición.'});
         }else{
